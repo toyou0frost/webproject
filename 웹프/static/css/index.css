@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jua', sans-serif;
+}
+
+.title_div > *{
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+.body_div{    
+    width: 1250;
+    height: 500%;
+    margin: 0 auto
+}
+
+.content_div{
+    padding: 30px;
+    padding-top: 0;
+}
+
+.content_div > ul{
+    margin: 10px;
+}
+
+.content_div > ul > p{
+    margin: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: gray;
+}
