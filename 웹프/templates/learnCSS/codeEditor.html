@@ -9,21 +9,55 @@
     <title>learnCSS</title>
 </head>
 <body>
-    <div id="monaco" style="height: 50vh;"></div>
+    <div id="html" style="height: 50vh; width: 45vw; display:inline-block;"></div>
+    <div id="css" style="height: 50vh; width: 45vw; display:inline-block;"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
     <script>
-        var editor;
+        var html;
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
         require(['vs/editor/editor.main'], function() {
-            editor = monaco.editor.create(document.getElementById('monaco'), {
+            html = monaco.editor.create(document.getElementById('html'), {
+            theme: 'vs-dark',
+            fontFamily: 'Nanum Gothic Coding',
+            automaticLayout: true,
+            language: 'html',
+            value: [
+                '<!DOCTYPE html>',
+                '<html lang="en">',
+                '<head>',
+                '   <meta charset="UTF-8">',
+                '   <meta http-equiv="X-UA-Compatible" content="IE=edge">',
+                '   <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+                '   <title>Document</title>',
+                '</head>',
+                '<body>',
+                '   ',
+                '</body>'
+            ].join('\n'),
+            });
+        });
+        var css;
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            css = monaco.editor.create(document.getElementById('css'), {
             theme: 'vs-dark',
             fontFamily: 'Nanum Gothic Coding',
             automaticLayout: true,
             language: 'css',
+            value: [
+            '*,',
+            '*::after,',
+            '*::before {',
+            '    margin: 0;',
+            '    padding: 0;',
+            '    box-sizing: border-box;',
+            '}'
+            ].join('\n'),
             });
         });
     </script>
+    <input type="button" value="RUN">
 </body>
 </html>
 {% endblock %}
