@@ -4,8 +4,8 @@ from datetime import datetime
 
 # Create your models here.
 class Html(models.Model):
-    subject = models.CharField(max_length=200)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=200, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     css = models.TextField(null=True)
     html = models.TextField(null=True)
     content = models.TextField(null=True)
@@ -19,7 +19,7 @@ class Html(models.Model):
         
 class Html_Answer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
-    question = models.ForeignKey(Html, on_delete=models.CASCADE)
+    question = models.ForeignKey(Html, on_delete=models.CASCADE, null=True)
     content = models.TextField()
     modify_Date = models.DateTimeField(null=True, blank=True)
     create_Date = models.DateTimeField()

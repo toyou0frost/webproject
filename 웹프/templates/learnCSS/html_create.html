@@ -10,8 +10,10 @@
     {% block content %}
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-    <div id="html" style="padding-left: 5vw; height: 50vh; width: 45vw; display:inline-block;"></div>
-    <div id="css" style="padding-left: 5vw; height: 50vh; width: 45vw; display:inline-block;"></div>
+    <div style="display: flex;">
+        <div id="html" style="flex:1; height: 50vh; width: 45vw; display:inline-block;"></div>
+        <div id="css" style="flex:1; margin-left: 5vh; height: 50vh; width: 45vw; display:inline-block;"></div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -27,6 +29,7 @@
                     language: 'html',
                     value: [
                         '<!-- html -->',
+                        '<!-- Please use class or id. -->',
                         '<!-- do not use class name "output" -->',
                         '<div class="main">',
                         '   ',
@@ -103,8 +106,8 @@
             <label for="subject">제목</label>
             <input type="text" class="form-control" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}">
         </div>
-        <div class="form-group html_content" ><label for="html">HTML</label><textarea name="html" class="form-control" id="html" rows="10" >{{ form.content.value|default_if_none:'' }}</textarea></div>
-        <div class="form-group css_content"><label for="css">CSS</label><textarea class="form-control" name="css" id="css" rows="10">{{ form.content.value|default_if_none:'' }}</textarea></div>
+        <div class="form-group html_content" ><label for="html">HTML</label><textarea name="html" class="form-control" id="html" rows="10" >{{ form.html.value|default_if_none:'' }}</textarea></div>
+        <div class="form-group css_content"><label for="css">CSS</label><textarea class="form-control" name="css" id="css" rows="10">{{ form.css.value|default_if_none:'' }}</textarea></div>
         <div class="form-group">
             <label for="content">내용</label>
             <textarea class="form-control" name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
