@@ -1,5 +1,5 @@
 from django import forms
-from learnCSS.models import Html
+from learnCSS.models import Html,Html_Answer
 
 
 class HtmlForm(forms.ModelForm):
@@ -12,3 +12,10 @@ class HtmlForm(forms.ModelForm):
             'css':'css',
             'content':'내용',
         }  
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Html_Answer
+        fields = ['content']
+        labels = {
+            'content': '답변내용',
+        }

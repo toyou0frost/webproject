@@ -2,6 +2,32 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<script>
+    onload = () => {
+        const CSSValue = document.getElementById("cssCode").innerHTML;
+        const HTMLValue = document.getElementById("htmlCode").innerHTML;
+        const output = document.getElementsByClassName("output")[0];
+        const outputstyle = document.getElementsByClassName("outputstyle")[0];
+        const outputdata = eval("convert(HTMLValue)");
+        output.innerHTML = outputdata;
+        outputstyle.innerHTML = CSSValue;
+    }
+    const convert = (data) => {
+        if(data !== undefined && data !== null && data !== ''){
+            data = String(data);
+
+            data = data.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+            data = data.replace(/<\?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+            var element = document.createElement('div');
+            element.innerHTML = data;
+            data = element.textContent;
+            element.textContent = '';
+        }
+        console.log(data);
+        return data;
+    }
+</script>
+<style class="outputstyle"></style>
 <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <!-- 사용자오류 표시 -->
     {% if messages %}
@@ -16,61 +42,71 @@
     <h2>{{ question.subject }}</h2>
     </div>
 <div class="container my-3">
-
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
             <div class="d-flex justify-content-end">        
-                {% if question.modify_date %}
+        {% if question.modify_Date %}
         <div class="badge badge-light p-2 text-left mx-3">
             <div class="mb-2">modified at</div>
-            <div>{{ question.modify_date }}</div>
+            <div>{{ question.modify_Date }}</div>
         </div>
         {% endif %}
                 <div class="badge badge-light p-2 text-left">
                     <div class="mb-2">{{ question.author.username }}</div>
-                    <div>{{ question.create_date }}</div>
+                    <div>{{ question.create_Date }}</div>
                 </div>
             </div>
                     {% if request.user == question.author %}
         <div class="my-3">
-            <a href="{% url 'apptest:question_modify' question.id  %}" 
+            <a href="{% url 'learnCSS:html_question_modify' question.id  %}" 
                class="btn btn-sm btn-outline-secondary">수정</a>
     <a href="#" class="delete btn btn-sm btn-outline-secondary"
-       data-uri="{% url 'apptest:question_delete' question.id  %}">삭제</a>
+       data-uri="{% url 'learnCSS:html_question_delete' question.id  %}">삭제</a>
         </div>
         {% endif %}
         </div>
     </div>
-    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
-    {% for answer in question.answer_set.all %}
+    <div class="card my-3" style="padding: 3vh; background-color: black; color: #ccc;">
+        <div class="card-text" id="htmlCode" style="white-space: pre-line;">{{ question.html }}</div>
+    </div>
+    <div class="card my-3" style="padding: 3vh; background-color: black; color: #ccc;">
+        <div class="card-text" id="cssCode" style="white-space: pre-line;">{{ question.css }}</div>
+    </div>
+    <div class="card my-3" style="background-color: #ccc;">
+        <div class="card-body output" style="height: 100%;">
+
+        </div>
+    </div>
+    <h5 class="border-bottom my-3 py-2">{{question.html_answer_set.count}}개의 답변이 있습니다.</h5>
+    {% for answer in question.html_answer_set.all %}
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
             <div class="d-flex justify-content-end">
-                {% if answer.modify_date %}
+                {% if answer.modify_Date %}
             <div class="badge badge-light p-2 text-left mx-3">
                 <div class="mb-2">modified at</div>
-                <div>{{ answer.modify_date }}</div>
+                <div>{{ answer.modify_Date }}</div>
             </div>
             {% endif %}
                 <div class="badge badge-light p-2 text-left">
                     <div class="mb-2">{{ answer.author.username }}</div>
-                    <div>{{ answer.create_date }}</div>
+                    <div>{{ answer.create_Date }}</div>
                 </div>
             </div>        
             {% if request.user == answer.author %}
         <div class="my-3">
-            <a href="{% url 'apptest:answer_modify' answer.id  %}" 
+            <a href="{% url 'learnCSS:html_answer_modify' answer.id  %}" 
                class="btn btn-sm btn-outline-secondary">수정</a>
             <a href="#" class="delete btn btn-sm btn-outline-secondary " 
-               data-uri="{% url 'apptest:answer_delete' answer.id  %}">삭제</a>
+               data-uri="{% url 'learnCSS:html_answer_delete' answer.id  %}">삭제</a>
         </div>
         {% endif %}
         </div>
     </div>
     {% endfor %}
-    <form action="{% url 'apptest:answer_create' question.id %}" method="post" class="my-3">
+    <form action="{% url 'learnCSS:html_answer_create' question.id %}" method="post" class="my-3">
         {% csrf_token %}
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">

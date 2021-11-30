@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
-import datetime
+from datetime import datetime  
 
 # Create your models here.
 class Html(models.Model):
@@ -10,18 +9,17 @@ class Html(models.Model):
     css = models.TextField(null=True)
     html = models.TextField(null=True)
     content = models.TextField(null=True)
-    # create_date = models.DateTimeField(default=datetime.datetime.now)
+    # create_date = models.DateTimeField(auto_now_add=True)
     # modify_date = models.DateTimeField(null=True, blank=True)
-    
+
+    create_Date = models.DateTimeField(null=True)
+    modify_Date = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return self.subject
-
-def now():
-    """
-    Returns an aware or naive datetime.datetime, depending on settings.USE_TZ.
-    """
-    if settings.USE_TZ:
-        # timeit shows that datetime.now(tz=utc) is 24% slower
-        return datetime.utcnow().replace(tzinfo=utc)
-    else:
-        return datetime.now()
+        
+class Html_Answer(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+    question = models.ForeignKey(Html, on_delete=models.CASCADE)
+    content = models.TextField()
+    modify_Date = models.DateTimeField(null=True, blank=True)
+    create_Date = models.DateTimeField()
