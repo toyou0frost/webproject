@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    "learnCSS",
+    "learnCSS.apps.LearncssConfig",
     'common.apps.CommonConfig',  
     'testapp1',
     'django.contrib.admin',

@@ -1,18 +1,15 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>learnCSS</title>
-    <style class="outputstyle">
-        
-    </style>
+    <title>Document</title>
+        <style class="outputstyle"> </style>
 </head>
 <body>
+    {% extends 'base.html' %}
+    {% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <div id="html" style="padding-left: 5vw; height: 50vh; width: 45vw; display:inline-block;"></div>
     <div id="css" style="padding-left: 5vw; height: 50vh; width: 45vw; display:inline-block;"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
@@ -71,34 +68,51 @@
                     const outputstyle = document.getElementsByClassName("outputstyle")[0];
                     output.innerHTML = HTMLValue;
                     outputstyle.innerHTML = CSSValue;
-
-                    const html_content = document.getElementsByClassName("html_content")[0];
-                    const css_content = document.getElementsByClassName("css_content")
-                    html_content.innerHTML = `<textarea name="html" id="html_id" style="visibility: hidden">${HTMLValue}</textarea>`
-                    css_content.innerHTML = `<textarea name="css" id="css_id" style="visibility: hidden">${CSSValue}</textarea>`
-                }
-                const save = () => {
-                    const CSSValue = css.getValue();    
-                    const HTMLValue = html.getValue();
-                }
+                    //const html_content = document.getElementsByClassName("html_content")[0];
+                    //const css_content = document.getElementsByClassName("css_content")[0];
+                    //html_content.innerHTML = `<label for="html">HTML</label><textarea class="form-control" name="html" id="html_content" rows="10">${HTMLValue}</textarea>`
+                    //css_content.innerHTML = `<label for="css">CSS</label><textarea class="form-control" name="css" id="html_content" rows="10">${CSSValue}</textarea>`
+                    
+                    }
             </script>
         </div>
         <div>
             <input type="button" onclick="run()" value="RUN" style="width: 5vh; height: 3vh; margin: 1.5vh 0;">
-            <input type="button" onclick="save()" value="SAVE" style="width: 5vh; height: 3vh; margin: 1.5vh 0;">
         </div>
-        <form action="{% url 'learnCSS:html_create' %}" method="post">
-            {% csrf_token %}
-            <div class="html_content"></div>
-            <div class="css_content"></div>
-            <input type="submit" value="save">
-        </form>  
         <div style="width: 50vw; height: 30vh; border: 1px solid gray; background-color: gray;">
             <div class="output" style="height: 100%;">
             
             </div>
         </div>
     </div>
+    <form method="post" class="post-form my-3">
+        {% csrf_token %}
+                <!-- 오류표시 Start -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject" value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group html_content" ><label for="html">HTML</label><textarea name="html" class="form-control" id="html" rows="10" >{{ form.content.value|default_if_none:'' }}</textarea></div>
+        <div class="form-group css_content"><label for="css">CSS</label><textarea class="form-control" name="css" id="css" rows="10">{{ form.content.value|default_if_none:'' }}</textarea></div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content" id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}
 </body>
 </html>
-{% endblock %}
