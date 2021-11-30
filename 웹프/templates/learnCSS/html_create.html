@@ -68,10 +68,10 @@
                     const outputstyle = document.getElementsByClassName("outputstyle")[0];
                     output.innerHTML = HTMLValue;
                     outputstyle.innerHTML = CSSValue;
-                    //const html_content = document.getElementsByClassName("html_content")[0];
-                    //const css_content = document.getElementsByClassName("css_content")[0];
-                    //html_content.innerHTML = `<label for="html">HTML</label><textarea class="form-control" name="html" id="html_content" rows="10">${HTMLValue}</textarea>`
-                    //css_content.innerHTML = `<label for="css">CSS</label><textarea class="form-control" name="css" id="html_content" rows="10">${CSSValue}</textarea>`
+                    const html_content = document.getElementsByClassName("html_content")[0];
+                    const css_content = document.getElementsByClassName("css_content")[0];
+                    html_content.innerHTML = `<label for="html">HTML</label><textarea class="form-control" name="html" id="html_content" rows="10">${HTMLValue}</textarea>`
+                    css_content.innerHTML = `<label for="css">CSS</label><textarea class="form-control" name="css" id="html_content" rows="10">${CSSValue}</textarea>`
                     
                     }
             </script>
